@@ -89,5 +89,5 @@ fun Home(onNavigateToPlayer: () -> Unit) {
 @Preview
 @Composable
 fun HomePreview() {
-    Home({})
+    Home(){}
 }
