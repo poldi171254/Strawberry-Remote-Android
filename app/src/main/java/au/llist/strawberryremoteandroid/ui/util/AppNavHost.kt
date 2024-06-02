@@ -1,5 +1,6 @@
 package au.llist.strawberryremoteandroid.ui.util
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -18,4 +19,5 @@ fun AppNavHost() {
         composable("home") { Home(onNavigateToPlayer = { navController.navigate("player") }) }
         composable("player") { Player(onNavigateToHome = { navController.navigate("home") }) }
     }
+
 }
