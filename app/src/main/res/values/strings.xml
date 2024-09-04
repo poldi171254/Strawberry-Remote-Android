@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Strawberry Remote Android</string>
+    <string name="welcome_title">Welcome to the Strawberry Remote</string>
+    <string name="welcome_text1">This App provides very basic functionality to control the playback of the Strawberry Music Player on Linux</string>
+    <string name="welcome_text2">The only functions available via the remote are</string>
+    <string name="welcome_text3">Play, Pause, Next, Previous</string>
+    <string name="welcome_text4">Please NOTE</string>
+    <string name="welcome_text5">Strawberry and Strawberry Remote must be on the same network</string>
 </resources>
