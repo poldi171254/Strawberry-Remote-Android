@@ -30,7 +30,7 @@ fun StrawberryHome(modifier: Modifier = Modifier,
         .fillMaxSize()
         .padding(20.dp)
     ) {
-        Text(stringResource(R.string.welcome_title), modifier = Modifier.padding(20.dp), fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
+        Text(stringResource(R.string.welcome_title), modifier = Modifier.padding(20.dp), fontSize = 15.sp, fontWeight = FontWeight.ExtraBold)
         Text(stringResource(R.string.welcome_text1))
         Spacer(modifier = Modifier.height(20.dp))
         Text(stringResource(R.string.welcome_text2))

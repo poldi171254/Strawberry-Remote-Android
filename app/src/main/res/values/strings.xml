@@ -5,5 +5,5 @@
     <string name="welcome_text2">The only functions available via the remote are</string>
     <string name="welcome_text3">Play, Pause, Next, Previous</string>
     <string name="welcome_text4">Please NOTE</string>
-    <string name="welcome_text5">Strawberry and the Strawberry Remote must be on hte same network</string>
+    <string name="welcome_text5">Strawberry and Strawberry Remote must be on the same network</string>
 </resources>
