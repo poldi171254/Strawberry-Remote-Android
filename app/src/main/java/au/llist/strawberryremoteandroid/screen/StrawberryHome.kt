@@ -8,19 +8,23 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SegmentedButtonColors
+
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
+
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.wear.compose.material.Button
+
 import au.llist.strawberryremoteandroid.R
+
 
 @Composable
 fun StrawberryHome(modifier: Modifier = Modifier,
@@ -39,11 +43,14 @@ fun StrawberryHome(modifier: Modifier = Modifier,
         Text(stringResource(R.string.welcome_text4))
         Text(stringResource(R.string.welcome_text5), modifier = Modifier.padding(20.dp))
 
-        Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Button(onClick = { /*TODO*/ }) {
-
+        Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly,Alignment.Bottom) {
+            ElevatedButton(onClick = { navController.navigate("remote connection") },
+                colors = ButtonDefaults.buttonColors(Color.LightGray)) {
+                Text("Continue")
             }
-            Button(onClick = { /*TODO*/ }) {
+            ElevatedButton(onClick = { System.exit(1) },
+                colors = ButtonDefaults.buttonColors(Color.LightGray)) {
+                Text("Exit")
             }
         }
     }

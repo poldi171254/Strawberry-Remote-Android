@@ -6,6 +6,8 @@
     <string name="welcome_text3">Play, Pause, Next, Previous</string>
     <string name="welcome_text4">Please NOTE</string>
     <string name="welcome_text5">Strawberry and Strawberry Remote must be on the same network</string>
+    <string name="network_heading">Connect to Strawberry Player</string>
+    <string name="enter_ip">Enter the IP address of the Strawberry Player</string>
     <string name="button_continue">Continue</string>
     <string name="button_exit">Exit</string>
     <string name="button_connect">Connect</string>
