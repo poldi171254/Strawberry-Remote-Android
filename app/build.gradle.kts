@@ -3,7 +3,6 @@ import com.google.protobuf.gradle.*
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    //id("org.jetbrains.kotlin.plugin.serialization") version "1.8.22"
     id("com.google.protobuf")
 }
 
@@ -49,6 +48,16 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    sourceSets{
+        getByName("main"){
+            kotlin {
+                srcDirs("src/main/kotlin")
+            }
+            proto {
+                srcDirs("src/main/proto")
+            }
         }
     }
 }

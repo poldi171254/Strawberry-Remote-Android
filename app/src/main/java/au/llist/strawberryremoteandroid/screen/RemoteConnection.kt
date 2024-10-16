@@ -31,12 +31,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import au.llist.strawberryremoteandroid.R
+import au.llist.strawberryremoteandroid.network.ConnectRemote
 
 
 @Composable
 fun RemoteConnection(modifier: Modifier = Modifier,
                      navController: NavController){
-    var ipConnect by remember { mutableStateOf("") }
+    var ipConnect by remember { mutableStateOf("192.168.1.1") }
+    var portConnect by remember { mutableStateOf("5050") }
 
     Column (modifier = modifier
         .fillMaxSize()
@@ -61,10 +63,25 @@ fun RemoteConnection(modifier: Modifier = Modifier,
                 fontSize = 28.sp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
         )
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(stringResource(R.string.enter_port), modifier = Modifier.padding(20.dp))
+        OutlinedTextField(value = portConnect,
+            onValueChange = {portConnect = it},
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 30.dp)
+                .padding(10.dp),
+            singleLine = true,
+            textStyle = TextStyle(
+                fontWeight = FontWeight.Bold,
+                color = Color.Magenta,
+                fontSize = 28.sp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
         Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly, Alignment.Bottom){
             //ElevatedButton(onClick = { navController.navigate("player")},
-            ElevatedButton(onClick = { },
-            // ElevatedButton(onClick = { connectToNet(ipConnect, navController) },
+
+            ElevatedButton(onClick = {ConnectRemote(ipConnect, portConnect.toInt(), navController)},
                 colors = ButtonDefaults.buttonColors(Color.LightGray)) {
                 Text("Continue")
                 }
