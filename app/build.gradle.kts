@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "au.llist.strawberryremoteandroid"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "au.llist.strawberryremoteandroid"
