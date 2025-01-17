@@ -12,8 +12,9 @@ android {
 
     defaultConfig {
         applicationId = "au.llist.strawberryremoteandroid"
-        minSdk = 25
-        targetSdk = 34
+        minSdk = 33
+        //noinspection EditedTargetSdkVersion
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 

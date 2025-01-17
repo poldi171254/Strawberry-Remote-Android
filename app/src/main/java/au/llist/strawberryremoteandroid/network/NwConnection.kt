@@ -1,12 +1,15 @@
 package au.llist.strawberryremoteandroid.network
 
 import androidx.navigation.NavController
+import au.llist.strawberryremoteandroid.util.SongInfo
 
 fun ConnectRemote(ip: String, port: Int, navController: NavController){
 
     val remotecomms = RemoteComms(ip, port)
-    remotecomms.ConnectRemote()
+    remotecomms.connectRemote()
     if (remotecomms.IsConnected()){
+        // Get song info
+        val song = SongInfo("test")
         navController.navigate("player")
     } else{
         navController.navigate("connection failed")
