@@ -1,25 +1,46 @@
 syntax = "proto3";
 
-option optimize_for = LITE_RUNTIME;
-
 package nw.remote;
+
+option java_multiple_files = true;
 
 enum MsgType {
     MSG_TYPE_UNSPECIFIED = 0;
 
-    // Client messages
-    MSG_TYPE_CONNECT = 1;
-    MSG_TYPE_DISCONNECT = 2;
-    MSG_TYPE_PLAY = 3;
-    MSG_TYPE_NEXT = 4;
-    MSG_TYPE_PREVIOUS = 5;
-    MSG_TYPE_PAUSE = 6;
-    MSG_TYPE_STOP = 7;
+    // Client message
+    MSG_TYPE_REQUEST_SONG_INFO = 1;
+    MSG_TYPE_REQUEST_PLAY = 2;
+    MSG_TYPE_REQUEST_NEXT = 3;
+    MSG_TYPE_REQUEST_PREVIOUS = 4;
+    MSG_TYPE_REQUEST_PAUSE = 5;
+    MSG_TYPE_REQUEST_STOP = 6;
+    MSG_TYPE_REQUEST_FINISH = 7;
 
+
+    // Server messages
+    MSG_TYPE_REPLY_SONG_INFO = 8;
+    MSG_TYPE_REPLY_PLAY = 9;
+    MSG_TYPE_REPLY_NEXT = 10;
+    MSG_TYPE_REPLY_PREVIOUS = 11;
+    MSG_TYPE_REPLY_PAUSE = 12;
+    MSG_TYPE_REPLY_STOP = 13;
+    MSG_TYPE_REPLY_FINISH = 14;
+    MSG_TYPE_ENGINE_STATE_CHANGE = 15;
+
+    // Bidirectional messages
+    MSG_TYPE_DISCONNECT = 16;
 }
 
-message RequestConnect {
-    bool send_current_song = 1;
+enum PlayerState{
+    PLAYER_STATUS_UNSPECIFIED = 0;
+    PLAYER_STATUS_PLAYING = 1;
+}
+
+enum EngineState {
+    ENGINE_STATE_EMPTY = 0;
+    ENGINE_STATE_IDELE = 1;
+    ENGINE_STATE_PLAYING = 2;
+    ENGINE_STATE_PAUSED = 3;
 }
 
 enum ReasonDisconnect {
@@ -44,14 +65,19 @@ message SongMetadata{
     string songlength = 10;
 }
 message RequestSongMetadata {
-    SongMetadata song_metadata = 1;
+    bool send = 1;
 }
 
 message ResponseSongMetadata {
     SongMetadata song_metadata = 1;
+    PlayerState player_state = 2;
 }
 
 message RequestNextTrack {
+    bool next = 1;
+}
+
+message ResponseNextTrack {
     bool next = 1;
 }
 
@@ -59,7 +85,15 @@ message RequestPreviousTrack {
     bool previous = 1;
 }
 
+message ResponsePreviousTrack {
+    bool previous = 1;
+}
+
 message RequestPlay {
+    bool play = 1;
+}
+
+message ResponsePlay {
     bool play = 1;
 }
 
@@ -67,20 +101,31 @@ message RequestPause {
     bool pause = 1;
 }
 
+message ResponsePause {
+    bool pause = 1;
+}
+
 message RequestStop {
     bool stop = 1;
 }
+
+message EngineStateChange {
+    EngineState state = 1;
+}
 message Message {
-    uint32 version = 1;
-    MsgType type = 2;
-    RequestSongMetadata request_song_metadata = 3;
-    ResponseSongMetadata response_song_metadata = 4;
-    RequestNextTrack request_next_track = 5;
-    RequestPreviousTrack request_previous_track = 6;
-    RequestPlay request_play = 7;
-    RequestPause request_pause = 8;
-    RequestStop request_stop = 9;
-    RequestConnect request_connect = 10;
-    RequestDisconnect request_disconnect = 11;
+    MsgType type = 1;
+    RequestSongMetadata request_song_metadata = 2;
+    ResponseSongMetadata response_song_metadata = 3;
+    RequestNextTrack request_next_track = 4;
+    RequestPreviousTrack request_previous_track = 5;
+    RequestPlay request_play = 6;
+    RequestPause request_pause = 7;
+    RequestStop request_stop = 8;
+    EngineStateChange engine_state_change = 9;
+    RequestDisconnect request_disconnect = 10;
+    ResponseNextTrack response_next_track = 11;
+    ResponsePreviousTrack response_previous_track = 12;
+    ResponsePlay response_play = 13;
+    ResponsePause response_pause = 14;
 }
 

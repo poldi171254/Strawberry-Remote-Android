@@ -1,17 +1,17 @@
 package au.llist.strawberryremoteandroid.network
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+
+
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
-import nw.remote.RemoteMessages.Message
-import nw.remote.RemoteMessages.MsgType
+import nw.remote.Message
+import nw.remote.MsgType
+import nw.remote.RequestSongMetadata
 import nw.remote.message
-import nw.remote.requestConnect
-import java.io.BufferedReader
-import java.io.InputStreamReader
+import java.io.InputStream
+import java.io.OutputStream
 
 import java.net.Socket
 
@@ -19,7 +19,17 @@ class RemoteComms(addrIn: String, portIn: Int) {
     private val addr = addrIn
     private val port = portIn
     private var clientSocket = Socket()
+    var outputStream: OutputStream = OutputStream.nullOutputStream()
+    var inputStream: InputStream = InputStream.nullInputStream()
     private var isConnected = false
+    private val Version = 1
+    private var buffer = ByteArray(1024) // Adjust as needed
+    var inMsg = Message.newBuilder()
+    var outMsg = Message.newBuilder()
+    var ll = Message.newBuilder()
+
+
+    var reqSong = RequestSongMetadata.newBuilder()
 
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -27,46 +37,62 @@ class RemoteComms(addrIn: String, portIn: Int) {
         launch(newSingleThreadContext("MyOwnThread")) {
             //launch(newSingleThreadContext("MyOwnThread")) {
             try {
+                println("${Thread.currentThread()} has run.")
                 clientSocket = Socket(addr, port)
-                InitMsgReuest()
+                isConnected = true
+                outputStream = clientSocket.getOutputStream()
+                inputStream = clientSocket.getInputStream()
+                initMsgReuest()
             } catch (e: Exception) {
                 isConnected = false
                 println("Error: ${e.message}")
             }
         }
+        println("${Thread.currentThread()} has run.")
+        val aa = ""
     }
 
-    fun IsConnected():Boolean{
+    fun isConnected():Boolean{
         return isConnected
     }
 
+    fun initMsgReuest(){
+        outMsg.clear()
+        outMsg.setType(MsgType.MSG_TYPE_REQUEST_SONG_INFO)
+        reqSong.setSend(true)
+        outMsg.setRequestSongMetadata(reqSong)
 
-    fun InitMsgReuest(){
-        SendMsg(
-            message {
-                version = 1
-                type = MsgType.MSG_TYPE_CONNECT
-                requestConnect {
-                    sendCurrentSong = true
-                }
-            }
-        )
+        readMsg()
+        println("Errorr wtf")
     }
 
+    fun sendMsg() {
+        try {
+            // outputStream.write(outMsg.toByteArray())
 
-    fun SendMsg(msg: Message) {
-        try{clientSocket.getOutputStream().write(msg.toByteArray())
-            clientSocket.getOutputStream().flush()}
+        }
         catch (e: Exception) {
             println("Error: ${e.message}")
         }
+    }
 
-        val msgIn = message {  }
+    fun readMsg(){
 
-        val reader = clientSocket.getInputStream().readAllBytes()
 
+        try {
+            val bytesAvailable = inputStream.available()
+            if (bytesAvailable > 0){
+                val bytesRead = inputStream.read(buffer,0,bytesAvailable)
+
+            }
+
+        }
+        catch(e: Exception) {
+            println("Error: ${e.message}")
+        }
 
     }
+
 
     fun CloseSocket(){
         clientSocket.close()

@@ -7,7 +7,7 @@ fun ConnectRemote(ip: String, port: Int, navController: NavController){
 
     val remotecomms = RemoteComms(ip, port)
     remotecomms.connectRemote()
-    if (remotecomms.IsConnected()){
+    if (remotecomms.isConnected()){
         // Get song info
         val song = SongInfo("test")
         navController.navigate("player")
