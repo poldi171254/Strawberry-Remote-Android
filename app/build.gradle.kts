@@ -76,7 +76,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material)
     implementation(libs.play.services.wallet)
-    implementation (libs.protobuf.kotlin.lite)
+    implementation (libs.protobuf.kotlin)
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -100,12 +102,10 @@ protobuf {
         all().forEach {
             it.plugins {
                 id("java") {
-                    option("lite")
                 }
             }
             it.builtins {
                 id("kotlin") {
-                    option("lite")
                 }
             }
         }
